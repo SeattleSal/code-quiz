@@ -31,3 +31,49 @@
 //  display index.html
 // when Clear Highscores button is pressed,
 //  clear high-scores array
+
+// grab elements needed such as start button
+var startButton = document.querySelector("#start");
+var mainEl = document.querySelector("main");
+
+// storage for questions, possible answers and correct answer
+var questionsAndAnswers = [
+    {   
+        question: "what?", 
+        possibleAnswers: ['yes', 'no', 'maybe'], 
+        rightAnswer: "yes"
+    },
+    {
+        question: "how?",
+        possibleAnswers: ['work', 'faith', 'luck'],
+        rightAnswer: 'work'
+
+    },
+    {
+        question: "when?",
+        possibleAnswers: ['now', 'tomorrow', 'never'],
+        rightAnswer: 'now'
+
+    }
+] 
+
+console.log(questionsAndAnswers);
+
+// startQuiz
+// one by one, display each question and possible answers
+function startQuiz() {
+    console.log("starting the quiz!");
+    // create ORDERED LIST of potential answers as buttons
+    var answerList = document.createElement("ol");
+    var liEl;
+    console.log(questionsAndAnswers[0].possibleAnswers.length);
+    for (var i = 0; i < questionsAndAnswers[0].possibleAnswers.length; i++) {
+        liEl = document.createElement("li");
+        liEl.innerHTML = questionsAndAnswers[0].possibleAnswers[i];
+        answerList.appendChild(liEl);
+    }
+    mainEl.appendChild(answerList);
+
+}
+
+startButton.addEventListener("click", startQuiz);
