@@ -1,0 +1,32 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-size: 1em;
+    box-sizing: border-box;
+}
+
+/* set header to put link on far left and timer on far right */
+header {
+    display: flex;
+    justify-content: space-between;
+}
+
+main {
+    width: 800px;
+    margin: 0 auto;
+    margin-top: 40px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+main h1 {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+/* buttons are purple with rounded corners */
+/* TO DO: do i need to use a buttons class instead??? */
+button {
+    background-color: purple;
+    color: white;
+    border-radius: 10%;
+}
