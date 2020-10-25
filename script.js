@@ -10,7 +10,6 @@
 // WHEN the game is over
 // THEN I can save my initials and score
 
-// homepage has intro with a start button
 
 // when start button is pushed,
 // then start timer at 75 seconds and present question with options
@@ -35,6 +34,11 @@
 // grab elements needed such as start button
 var startButton = document.querySelector("#start");
 var mainEl = document.querySelector("main");
+var timeEl = document.querySelector("#timeLeft");
+
+var timeRemaining = 0;
+var score = 0;
+// TO DO: need variable for high scores, local storage?
 
 // storage for questions, possible answers and correct answer
 var questionsAndAnswers = [
@@ -63,17 +67,42 @@ console.log(questionsAndAnswers);
 // one by one, display each question and possible answers
 function startQuiz() {
     console.log("starting the quiz!");
+    startTimer();
     // create ORDERED LIST of potential answers as buttons
     var answerList = document.createElement("ol");
     var liEl;
+    var button;
     console.log(questionsAndAnswers[0].possibleAnswers.length);
     for (var i = 0; i < questionsAndAnswers[0].possibleAnswers.length; i++) {
         liEl = document.createElement("li");
-        liEl.innerHTML = questionsAndAnswers[0].possibleAnswers[i];
+        button = document.createElement("button");
+        button.innerHTML = questionsAndAnswers[0].possibleAnswers[i];
+        liEl.appendChild(button);
         answerList.appendChild(liEl);
     }
     mainEl.appendChild(answerList);
 
+}
+
+// startTimer
+function startTimer(){
+    console.log("Starting timer!");
+    timeRemaining = 75;
+    //setTime();
+
+    /* The "interval" variable here using "setInterval()" begins the recurring increment of the
+       secondsElapsed variable which is used to check if the time is up */
+    interval = setInterval(function() {
+    timeRemaining--;
+ 
+    // So renderTime() is called here once every second.
+    renderTime();
+    console.log("Time: " + timeRemaining);
+    }, 1000);
+}
+
+function renderTime() {
+    timeEl.textContent = timeRemaining;
 }
 
 startButton.addEventListener("click", startQuiz);
