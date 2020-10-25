@@ -38,6 +38,7 @@ var timeEl = document.querySelector("#timeLeft");
 
 var timeRemaining = 0;
 var score = 0;
+var questionIndex = 0;
 // TO DO: need variable for high scores, local storage?
 
 // storage for questions, possible answers and correct answer
@@ -68,15 +69,25 @@ console.log(questionsAndAnswers);
 function startQuiz() {
     console.log("starting the quiz!");
     startTimer();
+    // clear main section
+    mainEl.innerHTML = "";
+
     // create ORDERED LIST of potential answers as buttons
+    var questionEl = document.createElement("h1");
     var answerList = document.createElement("ol");
     var liEl;
     var button;
-    console.log(questionsAndAnswers[0].possibleAnswers.length);
-    for (var i = 0; i < questionsAndAnswers[0].possibleAnswers.length; i++) {
+
+    // add question to h1 and display
+    questionEl.innerText = questionsAndAnswers[questionIndex].question;
+    mainEl.appendChild(questionEl);
+
+    // create list of buttons with possible answers
+    console.log(questionsAndAnswers[questionIndex].possibleAnswers.length);
+    for (var i = 0; i < questionsAndAnswers[questionIndex].possibleAnswers.length; i++) {
         liEl = document.createElement("li");
         button = document.createElement("button");
-        button.innerHTML = questionsAndAnswers[0].possibleAnswers[i];
+        button.innerHTML = questionsAndAnswers[questionIndex].possibleAnswers[i];
         liEl.appendChild(button);
         answerList.appendChild(liEl);
     }
@@ -93,11 +104,13 @@ function startTimer(){
     /* The "interval" variable here using "setInterval()" begins the recurring increment of the
        secondsElapsed variable which is used to check if the time is up */
     interval = setInterval(function() {
-    timeRemaining--;
- 
-    // So renderTime() is called here once every second.
-    renderTime();
-    console.log("Time: " + timeRemaining);
+        if (timeRemaining > 0) {
+            timeRemaining--;
+        
+            // So renderTime() is called here once every second.
+            renderTime();
+            console.log("Time: " + timeRemaining);
+        }
     }, 1000);
 }
 
