@@ -66,6 +66,9 @@ var questionsAndAnswers = [
     }
 ] 
 
+// TO DO - should these variables and functions be inside one large function??
+var questionEl;
+var answerList;
 // console.log(questionsAndAnswers);
 
 // FUNCTIONS
@@ -78,8 +81,8 @@ function startQuiz() {
     mainEl.innerHTML = "";
 
     // create ORDERED LIST of potential answers as buttons
-    var questionEl = document.createElement("h1");
-    var answerList = document.createElement("ol");
+    questionEl = document.createElement("h1");
+    answerList = document.createElement("ol");
     var liEl;
     var button;
 
@@ -90,13 +93,32 @@ function startQuiz() {
     // create list of buttons with possible answers
     console.log(questionsAndAnswers[questionIndex].possibleAnswers.length);
     for (var i = 0; i < questionsAndAnswers[questionIndex].possibleAnswers.length; i++) {
+        // create <li> element with a data-index
         liEl = document.createElement("li");
+        liEl.setAttribute("data-index", i);
+
+        // create button in the list
         button = document.createElement("button");
-        button.innerHTML = questionsAndAnswers[questionIndex].possibleAnswers[i];
+        // TO DO - use .textContent instead of .innerHTML?
+        button.textContent = questionsAndAnswers[questionIndex].possibleAnswers[i];
+        
         liEl.appendChild(button);
         answerList.appendChild(liEl);
     }
     mainEl.appendChild(answerList);
+
+    // When a element inside of the answers is clicked...
+    answerList.addEventListener("click", function(event) {
+        var element = event.target;
+    
+        // If that element is a button...
+        if (element.matches("button") === true) {
+            // Get its data-index value and remove the todo element from the list
+            var index = element.parentElement.getAttribute("data-index");
+            //  answerList.splice(index, 1);
+            console.log("button was pushed!" + index);
+        }
+    });
 
     // set high scores into local storage
     localStorage.setItem("highScores", JSON.stringify(highScoresObject));
@@ -105,7 +127,8 @@ function startQuiz() {
 // startTimer
 function startTimer(){
     console.log("Starting timer!");
-    timeRemaining = 75;
+    // TO DO - change time to 75 before submitting
+    timeRemaining = 30;
     //setTime();
 
     /* The "interval" variable here using "setInterval()" begins the recurring increment of the
@@ -117,6 +140,10 @@ function startTimer(){
             // So renderTime() is called here once every second.
             renderTime();
             console.log("Time: " + timeRemaining);
+        } else {
+            // this.clearInterval;
+            alert("Game Over!");
+            // TO DO add display of final score
         }
     }, 1000);
 }
@@ -126,7 +153,6 @@ function startTimer(){
 function renderTime() {
     timeEl.textContent = timeRemaining;
 }
-
 
 
 // LISTENERS

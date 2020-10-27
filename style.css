@@ -26,10 +26,15 @@ h1 {
     font-weight: bold;
 }
 
+ol {
+    text-align: left;
+}
+
 /* buttons are purple with rounded corners */
 /* TO DO: do i need to use a buttons class instead??? */
 button {
     background-color: purple;
     color: white;
     border-radius: 10%;
+    width: 30%;
 }
