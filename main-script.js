@@ -37,16 +37,13 @@ var startButton = document.querySelector("#start");
 var mainEl = document.querySelector("main");
 var timeEl = document.querySelector("#timeLeft");
 
-// variables from high-scores.html
-var highScoresEl = document.querySelector("#highScores");
-var clearScoresButton = document.querySelector("#clear");
-
+// other variables for quiz functions
 var timeRemaining = 0;
-var score = 0;
+var score = 0; // do i need this variable?
 var questionIndex = 0;
 
 // TO DO: need variable for high scores, local storage?
-var highScores = localStorage.setItem("SRP", 1000);
+var highScoresObject = { 'playser1': 1, 'player2': 2, 'player3': 3 };
 
 // storage for questions, possible answers and correct answer
 var questionsAndAnswers = [
@@ -101,6 +98,8 @@ function startQuiz() {
     }
     mainEl.appendChild(answerList);
 
+    // set high scores into local storage
+    localStorage.setItem("highScores", JSON.stringify(highScoresObject));
 }
 
 // startTimer
@@ -128,14 +127,7 @@ function renderTime() {
     timeEl.textContent = timeRemaining;
 }
 
-function renderHighScores() {
-    highScoresEl.textContent = "Scores go here!";
-}
 
-// FUNCTION CALLS
-// Generate high scores page
-// TO DO - either this works or the listener works, how do i get both to work?
-// renderHighScores();
 
 // LISTENERS
 startButton.addEventListener("click", startQuiz);
