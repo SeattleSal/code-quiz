@@ -41,6 +41,7 @@ var timeEl = document.querySelector("#timeLeft");
 var timeRemaining = 0;
 var score = 0; // do i need this variable?
 var questionIndex = 0;
+var startTime = 10; // 30 seconds for testing, switch to 75
 
 // TO DO: need variable for high scores, local storage?
 var highScoresObject = { 'playser1': 1, 'player2': 2, 'player3': 3 };
@@ -77,7 +78,7 @@ var answerList;
 function startQuiz() {
     console.log("starting the quiz!");
     startTimer();
-    // clear main section
+    // clear main section - make into function?
     mainEl.innerHTML = "";
 
     // create ORDERED LIST of potential answers as buttons
@@ -128,7 +129,7 @@ function startQuiz() {
 function startTimer(){
     console.log("Starting timer!");
     // TO DO - change time to 75 before submitting
-    timeRemaining = 30;
+    timeRemaining = startTime;
     //setTime();
 
     /* The "interval" variable here using "setInterval()" begins the recurring increment of the
@@ -141,11 +142,43 @@ function startTimer(){
             renderTime();
             console.log("Time: " + timeRemaining);
         } else {
-            // this.clearInterval;
-            alert("Game Over!");
-            // TO DO add display of final score
+            // stop interval (clearInterval) and call function to render final score page 
+            clearInterval(interval);
+            renderFinalScore();
         }
     }, 1000);
+
+
+}
+
+// renderFinalScore
+// create layout of game over and final score
+// TO DO - there has to be a shorter way to to all this...
+function renderFinalScore() {
+    // clear page
+    mainEl.innerHTML = "";
+
+    // create html elements for game over page
+    var h1El = document.createElement('h1');
+    h1El.textContent = "All done!";
+    mainEl.appendChild(h1El);
+
+    var pEl = document.createElement('p');
+    var lineBreakEl = document.createElement('br');
+    pEl.textContent = "Your final score is: " + score;
+    mainEl.appendChild(pEl, lineBreakEl);
+
+    var pEl2 = document.createElement('p');
+    pEl2.textContent = "Enter initials: ";
+    mainEl.appendChild(pEl2);
+
+    var inputEl = document.createElement('input');
+    inputEl.type = "text";
+    mainEl.appendChild(inputEl);
+
+    var buttonEl = document.createElement('button');
+    buttonEl.textContent = "Submit";
+    mainEl.appendChild(buttonEl);
 }
 
 // renderTime
