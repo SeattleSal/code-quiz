@@ -40,6 +40,7 @@ var timeEl = document.querySelector("#timeLeft");
 // other variables for quiz functions
 var timeRemaining = 0;
 var score = 0; // do i need this variable?
+var numQuestions = 3; // number of questions for testing
 var questionIndex = 0;
 var startTime = 10; // 30 seconds for testing, switch to 75
 
@@ -121,8 +122,6 @@ function startQuiz() {
         }
     });
 
-    // set high scores into local storage
-    localStorage.setItem("highScores", JSON.stringify(highScoresObject));
 }
 
 // startTimer
@@ -177,8 +176,27 @@ function renderFinalScore() {
     mainEl.appendChild(inputEl);
 
     var buttonEl = document.createElement('button');
+    buttonEl.id = "submitID";
     buttonEl.textContent = "Submit";
     mainEl.appendChild(buttonEl);
+
+    // when submit is pushed capture initials and put into temp storage
+    buttonEl.addEventListener('click', function(e) {
+        console.log("submit has been clicked!");
+        e.preventDefault(); // do I need this?
+
+        // get inputted initials 
+        var initials = inputEl.value;
+        console.log("Initials: " + initials + " Score: " + score);
+
+        // TO DO: store inititals submitted and score in local storage
+        localStorage.setItem("highScores", JSON.stringify(highScoresObject));
+
+        // navigate to high scores page
+        // window.location.href = "high-scores.html";
+
+    }
+    )
 }
 
 // renderTime
