@@ -9,7 +9,7 @@
 // variables from high-scores.html
 var highScoresEl = document.querySelector("#highScores");
 var clearScoresButton = document.querySelector("#clear");
-var highScoresString = localStorage.getItem("highScores");
+var highScoresString = JSON.stringify(localStorage.getItem("highScores"));
 
 // FUNCTIONS
 // renderHighScores
@@ -19,12 +19,15 @@ function renderHighScores() {
 
     // get initials and scores from local storage
     // console.log("HS String" + highScoresString + typeof(highScoresString));
-    console.log(highScoresString);
-    var highScoresObject = JSON.parse(highScoresString);
-    console.log("obj " + highScoresObject);
+    // console.log(highScoresString);
+    // console.log("type of " + typeof(highScoreString));
+    var highScoresObject = JSON.parse("["+highScoresString+"]");
+    console.log("obj " + highScoresObject + "type? " + typeof(highScoresObject));;
     var initials;
     var score;
     var key = "initials";
+
+    console.log("initials?" + highScoresObject[0].initials);
 
     // how do i get lenght to loop and what if there is only one?
     // for all the initials and scores, render to screen

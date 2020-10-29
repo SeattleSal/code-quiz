@@ -196,14 +196,34 @@ function renderFinalScore() {
 
         // get inputted initials and store with score in local storage
         var initials = inputEl.value;
+        var myObject = {"initials": initials, "score": score};
+        var myObjectText = JSON.stringify(myObject);
+
+        // get local storage
+        if (localStorage.getItem("highScores") === null) {
+            console.log("no scores stored");
+            localStorage.setItem("highScores", myObjectText);
+        } else {
+            // get high scores stored as a string
+            var storedString = localStorage.getItem("highScores");
+            // convert high scores string into an object
+            // var storedObject = JSON.parse(storedString);
+            console.log("string: " + storedString );
+            // add new initials and score to string
+            storedString += myObjectText;
+            // push newly appended string back to local storage
+            localStorage.setItem("highScores", storedString);
+            console.log("stored string: " + storedString);
+            // console.log(storedObject);
+            // console.log("scores exist: " + localStorage.getItem("highScores"));
+
+        }
 
         // TO DO: get any values already stored in local storage
         // TO DO: add on current values to local storage string
         // then set new string to local storage
-        var myObject = {"initials": initials, "score": score};
-        var myObjectText = JSON.stringify(myObject);
+
         console.log("myobjecttext " + myObjectText);
-        localStorage.setItem("highScores", myObjectText);
 
         // navigate to high scores page
         // window.location.href = "high-scores.html";
