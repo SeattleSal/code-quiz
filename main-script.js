@@ -61,9 +61,27 @@ var questionsAndAnswers = [
 
     },
     {
-        question: "when?",
-        possibleAnswers: ['now', 'tomorrow', 'never'],
-        rightAnswer: 'now'
+        question: "The Invisible Man , a classic science fiction novel, was written by what author?What was the name of the band Lionel Richie was a part of?",
+        possibleAnswers: ['Robert Louis Stevenson', 'H. G. Wells', 'Oscar Wilde'],
+        rightAnswer: 'H. G. Wells'
+
+    },
+    {
+        question: "In The Wizard of Oz, the Tin Man wanted to see the Wizard about getting..?",
+        possibleAnswers: ['A brain', 'A heart', 'Oil Can'],
+        rightAnswer: 'A heart'
+
+    },
+    {
+        question: "Don Quixote was written in which language?",
+        possibleAnswers: ['Spanish', 'Greek', 'Italian'],
+        rightAnswer: 'Spanish'
+
+    },
+    {
+        question: "Who is the heroine of Nathaniel Hawthorne’s The Scarlet Letter?",
+        possibleAnswers: ['Anne Hutchinson', 'Hester Prynne', 'Emily Shelby'],
+        rightAnswer: 'Hester Prynne'
 
     }
 ] 
