@@ -1,19 +1,6 @@
-// GIVEN I am taking a code quiz
-// WHEN I click the start button
-// THEN a timer starts and I am presented with a question
-// WHEN I answer a question
-// THEN I am presented with another question
 // WHEN I answer a question incorrectly
 // THEN time is subtracted from the clock
-// WHEN all questions are answered or the timer reaches 0
-// THEN the game is over
-// WHEN the game is over
-// THEN I can save my initials and score
 
-
-// when start button is pushed,
-// then start timer at 75 seconds and present question with options
-// when answer BUTTON is clicked
 // compare answer user chose to answer in questions array
 // if answer is a match
 //  ALERT correct and ????
@@ -24,12 +11,6 @@
 // when initials are added and SUBMIT button is pressed
 //  then go to high-scores.html
 
-// when go to high-scores.html
-//  if high-score array has values display in list each initial and score
-// when Go Back button is pressed
-//  display index.html
-// when Clear Highscores button is pressed,
-//  clear high-scores array
 
 // VARIABLES
 // grab elements needed such as start button
@@ -40,8 +21,6 @@ var timeEl = document.querySelector("#timeLeft");
 // other variables for quiz functions
 var timeRemaining = 0;
 var score = 0; // do i need this variable?
-var numQuestions = 3; // number of questions for testing
-var questionIndex = 0;
 var startTime = 10; // 30 seconds for testing, switch to 75
 
 // TO DO: need variable for high scores, local storage?
@@ -61,7 +40,7 @@ var questionsAndAnswers = [
 
     },
     {
-        question: "The Invisible Man , a classic science fiction novel, was written by what author?What was the name of the band Lionel Richie was a part of?",
+        question: "The Invisible Man , a classic science fiction novel, was written by what author?",
         possibleAnswers: ['Robert Louis Stevenson', 'H. G. Wells', 'Oscar Wilde'],
         rightAnswer: 'H. G. Wells'
 
@@ -89,83 +68,95 @@ var questionsAndAnswers = [
 // TO DO - should these variables and functions be inside one large function??
 var questionEl;
 var answerList;
-// console.log(questionsAndAnswers);
 
 // FUNCTIONS
-// startQuiz
-// one by one, display each question and possible answers
+// startQuiz - one by one, display each question and possible answers
 function startQuiz() {
+    var questionIndex = 0;
     console.log("starting the quiz!");
-    startTimer();
-    // clear main section - make into function?
-    mainEl.innerHTML = "";
 
-    // create ORDERED LIST of potential answers as buttons
+    // start the timer
+    startTimer();
+    console.log("Question #" + questionIndex);
+
+    // crete elements for question (h1) and list of answers (ol)
     questionEl = document.createElement("h1");
     answerList = document.createElement("ol");
+
+    // render Questions and answers
+    renderQuestions(questionIndex);
+}
+
+// renderQuestions - render question and answers on main page
+function renderQuestions(questionIndex) {
+    // clear main and other elements displayed for each new question and answers
+    mainEl.innerHTML = "";
+    questionEl.innerText = "";
+    answerList.innerText = "";
     var liEl;
     var button;
+    // console.log("clear main" + mainEl);
 
-    // add question to h1 and display
-    questionEl.innerText = questionsAndAnswers[questionIndex].question;
-    mainEl.appendChild(questionEl);
+    // for the number of questions, display question and answers
+    if(questionIndex < 5){
+        questionEl.innerText = questionsAndAnswers[questionIndex].question;
+        mainEl.appendChild(questionEl);
 
-    // create list of buttons with possible answers
-    console.log(questionsAndAnswers[questionIndex].possibleAnswers.length);
-    for (var i = 0; i < questionsAndAnswers[questionIndex].possibleAnswers.length; i++) {
-        // create <li> element with a data-index
-        liEl = document.createElement("li");
-        liEl.setAttribute("data-index", i);
+        // create list of buttons with possible answers for each question
+        for (var i = 0; i < questionsAndAnswers[questionIndex].possibleAnswers.length; i++) {
+            // create <li> element with a data-index
+            liEl = document.createElement("li");
+            liEl.setAttribute("data-index", i);
 
-        // create button in the list
-        button = document.createElement("button");
-        // TO DO - use .textContent instead of .innerHTML?
-        button.textContent = questionsAndAnswers[questionIndex].possibleAnswers[i];
-        
-        liEl.appendChild(button);
-        answerList.appendChild(liEl);
-    }
-    mainEl.appendChild(answerList);
-
-    // When a element inside of the answers is clicked...
-    answerList.addEventListener("click", function(event) {
-        var element = event.target;
-    
-        // If that element is a button...
-        if (element.matches("button") === true) {
-            // Get its data-index value and remove the todo element from the list
-            var index = element.parentElement.getAttribute("data-index");
-            //  answerList.splice(index, 1);
-            console.log("button was pushed!" + index);
+            // create button in the list
+            button = document.createElement("button");
+            button.textContent = questionsAndAnswers[questionIndex].possibleAnswers[i];
+            liEl.appendChild(button);
+            answerList.appendChild(liEl);
         }
-    });
+        mainEl.appendChild(answerList);
 
+        // When a element inside of the answers is clicked...
+        answerList.addEventListener("click", function(event) {
+            var element = event.target;
+            event.preventDefault();
+        
+            // If that element is a button...
+            // TO DO - check if answer is correct and change score, right now any button moves forward no difference
+            if (element.matches("button") === true) {
+                // Get its data-index value from the button
+                var index = element.parentElement.getAttribute("data-index");
+                //  answerList.splice(index, 1);
+                console.log("button was pushed!" + index);
+                questionIndex++;
+                renderQuestions(questionIndex);
+                // is answer correct? if so, print 'correct'; else print 'wrong', go to next question
+            }
+        });
+    } else { // reached end of questions
+        timeRemaining = 0;
+        renderFinalScore(); // is this line redundant with code in startTimer?
+    }
 }
 
 // startTimer
 function startTimer(){
-    console.log("Starting timer!");
-    // TO DO - change time to 75 before submitting
+    // console.log("Starting timer!");
     timeRemaining = startTime;
     //setTime();
-
     /* The "interval" variable here using "setInterval()" begins the recurring increment of the
        secondsElapsed variable which is used to check if the time is up */
     interval = setInterval(function() {
         if (timeRemaining > 0) {
+            // decrement by 1 second every second until time is up
             timeRemaining--;
-        
-            // So renderTime() is called here once every second.
             renderTime();
-            console.log("Time: " + timeRemaining);
         } else {
             // stop interval (clearInterval) and call function to render final score page 
             clearInterval(interval);
             renderFinalScore();
         }
     }, 1000);
-
-
 }
 
 // renderFinalScore
@@ -203,12 +194,16 @@ function renderFinalScore() {
         console.log("submit has been clicked!");
         e.preventDefault(); // do I need this?
 
-        // get inputted initials 
+        // get inputted initials and store with score in local storage
         var initials = inputEl.value;
-        console.log("Initials: " + initials + " Score: " + score);
 
-        // TO DO: store inititals submitted and score in local storage
-        localStorage.setItem("highScores", JSON.stringify(highScoresObject));
+        // TO DO: get any values already stored in local storage
+        // TO DO: add on current values to local storage string
+        // then set new string to local storage
+        var myObject = {"initials": initials, "score": score};
+        var myObjectText = JSON.stringify(myObject);
+        console.log("myobjecttext " + myObjectText);
+        localStorage.setItem("highScores", myObjectText);
 
         // navigate to high scores page
         // window.location.href = "high-scores.html";
@@ -222,7 +217,6 @@ function renderFinalScore() {
 function renderTime() {
     timeEl.textContent = timeRemaining;
 }
-
 
 // LISTENERS
 startButton.addEventListener("click", startQuiz);
