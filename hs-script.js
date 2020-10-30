@@ -9,38 +9,52 @@
 // variables from high-scores.html
 var highScoresEl = document.querySelector("#highScores");
 var clearScoresButton = document.querySelector("#clear");
-var highScoresString = JSON.stringify(localStorage.getItem("highScores"));
 
 // FUNCTIONS
 // renderHighScores
 // Retrieve the highScores stored in local storage and display
 // TO DO - figure out how to get values out of JSON?!?!?!?
+// THIS IS BROKEN!!!
 function renderHighScores() {
+
+    if (localStorage.getItem("highScores") === null) {
+        console.log("No scores stored");
+    }
+    else {
+        console.log("high scores are stored");
+        var x = localStorage.getItem("highScores");
+        console.log(x);
+        // var highScoresStored = JSON.parse(localStorage.getItem("highScores"));
+        // console.log("obj " + highScoresStored);
+
+        // for(var key in highScoresStored) {
+        //    console.log(highScoresStored.initials + " " + highScoresStored.score);
+    //     initials = highScoresObject.initials;
+    //     score = highScoresObject.score;
+    //     console.log("HS Object" + highScoresObject + " " + typeof(highScoresObject));;
+    //     console.log("Initial and score" + initials + " " + score);
+    
+    //     highScoresEl.textContent = " " + initials + " - " + score;
+
+        // }
+    }
 
     // get initials and scores from local storage
     // console.log("HS String" + highScoresString + typeof(highScoresString));
     // console.log(highScoresString);
     // console.log("type of " + typeof(highScoreString));
-    var highScoresObject = JSON.parse("["+highScoresString+"]");
-    console.log("obj " + highScoresObject + "type? " + typeof(highScoresObject));;
-    var initials;
-    var score;
-    var key = "initials";
+    // var highScoresObject = JSON.parse("["+highScoresString+"]");
+    // console.log("type? " + typeof(highScoresStored));
+    // var initials;
+    // var score;
+    // var key = "initials";
 
-    console.log("initials?" + highScoresObject[0].initials);
+    // console.log("initials?" + highScoresStored.initials);
 
     // how do i get lenght to loop and what if there is only one?
     // for all the initials and scores, render to screen
     // for (i = 0; i < highScoresObject.length; i++) {
-    for(var key in highScoresObject) {
-        initials = highScoresObject.initials;
-        score = highScoresObject.score;
-        console.log("HS Object" + highScoresObject + " " + typeof(highScoresObject));;
-        console.log("Initial and score" + initials + " " + score);
-    
-        highScoresEl.textContent = " " + initials + " - " + score;
 
-    }
     // console.log("Object stringify " + JSON.stringify(highScoresObject));
 
 

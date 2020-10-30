@@ -195,35 +195,32 @@ function renderFinalScore() {
         e.preventDefault(); // do I need this?
 
         // get inputted initials and store with score in local storage
-        var initials = inputEl.value;
-        var myObject = {"initials": initials, "score": score};
-        var myObjectText = JSON.stringify(myObject);
-
+        var newInitials = inputEl.value;
+        var myObject = {
+            initials: newInitials, 
+            score: score};
+        
         // get local storage
         if (localStorage.getItem("highScores") === null) {
             console.log("no scores stored");
-            localStorage.setItem("highScores", myObjectText);
+            localStorage.setItem("highScores", JSON.stringify(myObject));
         } else {
             // get high scores stored as a string
-            var storedString = localStorage.getItem("highScores");
-            // convert high scores string into an object
-            // var storedObject = JSON.parse(storedString);
-            console.log("string: " + storedString );
-            // add new initials and score to string
-            storedString += myObjectText;
-            // push newly appended string back to local storage
+            var hs = localStorage.getItem("highScores");
+            var hsObject = JSON.parse(hs);
+            var array = [];
+
+            if(hsObject.length) {
+                // console.log("HSLENTHG " + hsObject.length);
+                hsObject.map(item => array.push(item))
+            } else {
+                array.push(hsObject);
+            }
+
+            array.push(myObject);
+            storedString = JSON.stringify(array);
             localStorage.setItem("highScores", storedString);
-            console.log("stored string: " + storedString);
-            // console.log(storedObject);
-            // console.log("scores exist: " + localStorage.getItem("highScores"));
-
         }
-
-        // TO DO: get any values already stored in local storage
-        // TO DO: add on current values to local storage string
-        // then set new string to local storage
-
-        console.log("myobjecttext " + myObjectText);
 
         // navigate to high scores page
         // window.location.href = "high-scores.html";
