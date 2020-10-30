@@ -60,7 +60,10 @@ function renderHighScores() {
 
 }
 
-// TO DO - create clear initials and scores function
+// clearScores when "Clear Scores" button is clicked
+clearScoresButton.addEventListener('click', function(e){
+    localStorage.clear();
+})
 
 // FUNCTION CALLS
 // Generate high scores page
