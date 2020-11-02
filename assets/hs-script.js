@@ -22,6 +22,7 @@ function renderHighScores() {
 
         // create list elements
         var listEl = document.createElement('ol');
+        listEl.classList.add('final-score');
         highScoresEl.appendChild(listEl);
         var liEl;
         

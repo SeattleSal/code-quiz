@@ -37,11 +37,11 @@ ol {
     list-style: none;
 }
 
-li {
+.final-score {
     border: solid 1px white;
     padding: 5px;
     margin: 5px;
-    background-color: #DDDDB7;
+    background-color: #43ec7b;
 }
 
 /* buttons are purple with rounded corners */
