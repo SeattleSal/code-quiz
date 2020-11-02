@@ -82,7 +82,6 @@ function startQuiz() {
 
     // start the timer
     startTimer();
-    console.log("Question #" + questionIndex);
 
     // crete elements for question (h1) and list of answers (ol)
     questionEl = document.createElement("h1");
@@ -110,13 +109,10 @@ function renderQuestions(questionIndex) {
 
     // for the number of questions, display question and answers
     questionEl.innerText = questionsAndAnswers[questionIndex].question;
-    console.log(questionEl);
-    console.log("Question Index " + questionIndex)
     mainEl.appendChild(questionEl);
 
         // create list of buttons with possible answers for each question
         for (var i = 0; i < 3; i++) {
-            console.log("Creating answers for question " + questionIndex);
             // create <li> element with a data-index
             liEl = document.createElement("li");
             liEl.setAttribute("data-index", i);
@@ -137,12 +133,10 @@ function renderQuestions(questionIndex) {
             // TO DO - the results aren't showing
             mainEl.appendChild(resultEl);
                     
-            // If that element is a button...
-            // TO DO - check if answer is correct and change score, right now any button moves forward no difference
+            // If button is clicked, chheck if answwer is correct or wrong
             if (element.matches("button") === true) {
                 // Get its data-index value from the button
                 var answer = element.textContent;
-                console.log("answer: " + answer);
                 if(answer === questionsAndAnswers[questionIndex].rightAnswer){
                     console.log("Correct!");
                     resultEl = "Correct!";
@@ -150,13 +144,10 @@ function renderQuestions(questionIndex) {
                 } else {
                     console.log("wrong!");
                     resultEl = "Wrong!";
-                    timeRemaining -= 5;
+                    timeRemaining -= 10;
                 }
-                console.log("Score is " + score);
 
                 questionIndex++;
-                console.log("question index: " + questionIndex);
-                // return;
                 renderQuestions(questionIndex);
             }
         }, {once: true});
@@ -201,13 +192,17 @@ function renderFinalScore() {
     pEl.textContent = "Your final score is: " + score;
     mainEl.appendChild(pEl, lineBreakEl);
 
-    var pEl2 = document.createElement('p');
-    pEl2.textContent = "Enter initials: ";
-    mainEl.appendChild(pEl2);
-
+    var formEl = document.createElement("FORM");
+    var labelEl = document.createElement("label");
     var inputEl = document.createElement('input');
-    inputEl.type = "text";
-    mainEl.appendChild(inputEl);
+    formEl.setAttribute('id', 'form');
+    labelEl.innerHTML = "Enter Initials: ";
+    inputEl.setAttribute("type", "text");
+    inputEl.setAttribute("name", "initials");
+    formEl.appendChild(labelEl);
+    formEl.appendChild(inputEl);
+    mainEl.appendChild(formEl);
+    console.log(formEl);
 
     var buttonEl = document.createElement('button');
     buttonEl.id = "submitID";
@@ -217,7 +212,7 @@ function renderFinalScore() {
     // when submit is pushed capture initials and put into temp storage
     buttonEl.addEventListener('click', function(e) {
         console.log("submit has been clicked!");
-        e.preventDefault(); // do I need this?
+        e.preventDefault(); 
 
         // get inputted initials and store with score in local storage
         var newInitials = inputEl.value;
@@ -227,10 +222,9 @@ function renderFinalScore() {
         
         // get local storage
         if (localStorage.getItem("highScores") === null) {
-            console.log("no scores stored");
             localStorage.setItem("highScores", JSON.stringify(myObject));
         } else {
-            // get high scores stored as a string
+            // if scores are already stored, retrieve them first then add to them before storing to local
             var hs = localStorage.getItem("highScores");
             var hsObject = JSON.parse(hs);
             var array = [];
@@ -248,13 +242,11 @@ function renderFinalScore() {
 
         // navigate to high scores page
         window.location.href = "high-scores.html";
-
-    }
-    )
+    })
 }
 
-
 // LISTENERS
+// start quiz when user clicks Start button
 startButton.addEventListener("click", startQuiz);
 
 
