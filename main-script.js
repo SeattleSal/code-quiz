@@ -9,7 +9,7 @@ var timeEl = document.querySelector("#timeLeft");
 // other variables for quiz functions
 var timeRemaining = 0;
 var score = 0; // do i need this variable?
-var startTime = 60; // TO DO - change to 75 before turning in
+var startTime = 75; 
 
 // storage for questions, possible answers and correct answer
 var questionsAndAnswers = [
@@ -60,6 +60,11 @@ var questionsAndAnswers = [
 
     },
     {
+        question: "How does Dorothy defeat the Witch of the West?",
+        possibleAnswers: ['A pail of water', 'Winged Monkeys', 'Dropping a house on her'],
+        rightAnswer: 'A pail of water'
+    },
+    {
         question: "At the end, whom did Dorothy say she’d miss most of all?",
         possibleAnswers: ['Tin Man', 'Scarecrow', 'Lion'],
         rightAnswer: 'Scarecrow'
@@ -84,7 +89,6 @@ function startQuiz() {
     answerList = document.createElement("ol");
 
     // render Questions and answers
-    // TO DO - should i put the for loop  here instead on in the renderQuestions function?
     renderQuestions(questionIndex);
 }
 
@@ -98,13 +102,20 @@ function renderQuestions(questionIndex) {
     var button;
     var result;
 
+    if(questionIndex >= questionsAndAnswers.length) {
+        clearInterval(interval);
+        renderFinalScore();
+        return;
+    }
+
     // for the number of questions, display question and answers
-    if (questionIndex < questionsAndAnswers.length) {
-        questionEl.innerText = questionsAndAnswers[questionIndex].question;
-        mainEl.appendChild(questionEl);
+    questionEl.innerText = questionsAndAnswers[questionIndex].question;
+    console.log(questionEl);
+    console.log("Question Index " + questionIndex)
+    mainEl.appendChild(questionEl);
 
         // create list of buttons with possible answers for each question
-        for (var i = 0; i < questionsAndAnswers[questionIndex].possibleAnswers.length; i++) {
+        for (var i = 0; i < 3; i++) {
             console.log("Creating answers for question " + questionIndex);
             // create <li> element with a data-index
             liEl = document.createElement("li");
@@ -123,7 +134,7 @@ function renderQuestions(questionIndex) {
             event.preventDefault();
             var element = event.target;
             resultEl = document.createElement("p");
-
+            // TO DO - the results aren't showing
             mainEl.appendChild(resultEl);
                     
             // If that element is a button...
@@ -139,18 +150,16 @@ function renderQuestions(questionIndex) {
                 } else {
                     console.log("wrong!");
                     resultEl = "Wrong!";
-                    score--;
                     timeRemaining -= 5;
                 }
                 console.log("Score is " + score);
 
                 questionIndex++;
+                console.log("question index: " + questionIndex);
+                // return;
                 renderQuestions(questionIndex);
             }
-        });
-    } else {
-        renderFinalScore(); // is this line redundant with code in startTimer?
-    }
+        }, {once: true});
 }
 
 // startTimer
@@ -168,6 +177,12 @@ function startTimer(){
             renderFinalScore();
         }
     }, 1000);
+}
+
+// renderTime
+// print seconds on index.html in timer section
+function renderTime() {
+    timeEl.textContent = timeRemaining;
 }
 
 // renderFinalScore
@@ -238,11 +253,6 @@ function renderFinalScore() {
     )
 }
 
-// renderTime
-// print seconds on index.html in timer section
-function renderTime() {
-    timeEl.textContent = timeRemaining;
-}
 
 // LISTENERS
 startButton.addEventListener("click", startQuiz);
