@@ -6,10 +6,12 @@ var startButton = document.querySelector("#start");
 var mainEl = document.querySelector("main");
 var timeEl = document.querySelector("#timeLeft");
 
-// other variables for quiz functions
+// other variables for keep track of quiz functions
 var timeRemaining = 0;
-var score = 0; // do i need this variable?
+var score = 0; 
 var startTime = 75; 
+var questionEl;
+var answerList;
 
 // storage for questions, possible answers and correct answer
 var questionsAndAnswers = [
@@ -70,10 +72,6 @@ var questionsAndAnswers = [
         rightAnswer: 'Scarecrow'
     }
 ] 
-
-// TO DO - should these variables and functions be inside one large function??
-var questionEl;
-var answerList;
 
 // FUNCTIONS
 // startQuiz - one by one, display each question and possible answers
