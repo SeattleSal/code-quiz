@@ -17,7 +17,6 @@ function renderHighScores() {
         // there are scores stored
         var hs = localStorage.getItem("highScores");
         var hsObject = JSON.parse(hs);
-        console.log(hsObject);
         var array = [];
 
         // create list elements
@@ -29,26 +28,23 @@ function renderHighScores() {
         if (hsObject.length) {
             for(var x in hsObject) {
                 liEl = document.createElement("li");
-                liEl.innerHTML = "Initials: " + hsObject[x].initials + " Score: " + hsObject[x].score;
-                console.log(liEl.innerHTML);
+                liEl.innerHTML = `Initials: ${hsObject[x].initials} Score: ${hsObject[x].score}`;
                 listEl.appendChild(liEl);
             }
         } else {
-            console.log("theres only one score!");
             liEl = document.createElement("li");
-            liEl.innerHTML ="Initials: " + hsObject.initials + " Score: " + hsObject.score;
+            liEl.innerHTML = `Initials: ${hsObject.initials} \t Score: ${hsObject.score}`;
             listEl.appendChild(liEl);
         }
     }
 }
 
+// FUNCTION CALLS
 // clearScores when "Clear Scores" button is clicked
 clearScoresButton.addEventListener('click', function(e){
     localStorage.clear();
     renderHighScores();
 })
 
-// FUNCTION CALLS
 // Generate high scores page
-// To do - should this be called 'init'???
 renderHighScores();

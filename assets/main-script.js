@@ -12,6 +12,7 @@ var score = 0;
 var startTime = 75; 
 var questionEl;
 var answerList;
+var result;
 
 // storage for questions, possible answers and correct answer
 var questionsAndAnswers = [
@@ -32,19 +33,19 @@ var questionsAndAnswers = [
         rightAnswer: '1900'
     },
     {
-        question: "In The Wizard of Oz, the Lion wanted to see the Wizard about getting..?",
+        question: "What did the Lion want to ask for from the Wizard?",
         possibleAnswers: ['Courage', 'A haircut', 'A heart'],
         rightAnswer: 'Courage'
 
     },
     {
-        question: "In The Wizard of Oz, the Tin Man wanted to see the Wizard about getting..?",
+        question: "What did the Tin Man want to ask for from the Wizard?",
         possibleAnswers: ['A brain', 'A heart', 'Oil Can'],
         rightAnswer: 'A heart'
 
     },
     {
-        question: "In The Wizard of Oz, the Scarecrow wanted to see the Wizard about getting..?",
+        question: "What did the Scarecrow want to ask for from the Wizard?",
         possibleAnswers: ['More straw', 'A brain', 'A heart'],
         rightAnswer: 'A brain'
 
@@ -62,12 +63,12 @@ var questionsAndAnswers = [
 
     },
     {
-        question: "How does Dorothy defeat the Witch of the West?",
+        question: "How does Dorothy defeat the Wicked Witch of the West?",
         possibleAnswers: ['A pail of water', 'Winged Monkeys', 'Dropping a house on her'],
         rightAnswer: 'A pail of water'
     },
     {
-        question: "At the end, whom did Dorothy say she’d miss most of all?",
+        question: "As Dorothy leaves Oz, whom did Dorothy say she’d miss most of all?",
         possibleAnswers: ['Tin Man', 'Scarecrow', 'Lion'],
         rightAnswer: 'Scarecrow'
     }
@@ -82,8 +83,9 @@ function startQuiz() {
     startTimer();
 
     // crete elements for question (h1) and list of answers (ol)
-    questionEl = document.createElement("h1");
+    questionEl = document.createElement("h2");
     answerList = document.createElement("ol");
+    result = document.createElement("p");
 
     // render Questions and answers
     renderQuestions(questionIndex);
@@ -99,7 +101,7 @@ function renderQuestions(questionIndex) {
     var button;
     var result;
 
-    if(questionIndex >= questionsAndAnswers.length) {
+    if(questionIndex >= questionsAndAnswers.length || timeRemaining <= 0) {
         clearInterval(interval);
         renderFinalScore();
         return;
@@ -122,32 +124,33 @@ function renderQuestions(questionIndex) {
             answerList.appendChild(liEl);
         }
         mainEl.appendChild(answerList);
+        resultEl = document.createElement("p");
+        mainEl.appendChild(resultEl);
 
         // When a answer button is clicked...
         answerList.addEventListener("click", function(event) {
             event.preventDefault();
             var element = event.target;
-            resultEl = document.createElement("p");
-            // TO DO - the results aren't showing
-            mainEl.appendChild(resultEl);
                     
             // If button is clicked, chheck if answwer is correct or wrong
             if (element.matches("button") === true) {
                 // Get its data-index value from the button
                 var answer = element.textContent;
                 if(answer === questionsAndAnswers[questionIndex].rightAnswer){
-                    console.log("Correct!");
-                    resultEl = "Correct!";
+                    resultEl.innerText = "Correct!";
                     score++;
                 } else {
-                    console.log("wrong!");
-                    resultEl = "Wrong!";
+                    resultEl.innerText = "Wrong!";
                     timeRemaining -= 10;
                 }
 
                 questionIndex++;
-                renderQuestions(questionIndex);
+                // display if answer was right or wron for 1 second
+                setTimeout(function() {
+                    renderQuestions(questionIndex);
+                }, 1000);
             }
+
         }, {once: true});
 }
 
@@ -200,7 +203,6 @@ function renderFinalScore() {
     formEl.appendChild(labelEl);
     formEl.appendChild(inputEl);
     mainEl.appendChild(formEl);
-    console.log(formEl);
 
     var buttonEl = document.createElement('button');
     buttonEl.id = "submitID";
@@ -209,7 +211,6 @@ function renderFinalScore() {
 
     // when submit is pushed capture initials and put into temp storage
     buttonEl.addEventListener('click', function(e) {
-        console.log("submit has been clicked!");
         e.preventDefault(); 
 
         // get inputted initials and store with score in local storage

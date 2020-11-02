@@ -7,6 +7,7 @@
     box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif;
     line-height: 1.25;
+    background-color: #edf5e1;
 }
 
 /* set header to put link on far left and timer on far right */
@@ -27,6 +28,15 @@ main {
 h1 {
     font-size: 2em;
     font-weight: bold;
+    color: #379683;
+
+}
+
+h2 {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #379683;
+
 }
 
 ol {
@@ -37,17 +47,23 @@ ol {
     list-style: none;
 }
 
+/* final scores display uses green lines */
 .final-score {
-    border: solid 1px white;
+    border: solid 1px;
     padding: 5px;
+    line-height: 2px;
+}
+
+.final-score li {
+    background-color: #8ee4af;
     margin: 5px;
-    background-color: #43ec7b;
+    font-weight: bold;
 }
 
 /* buttons are purple with rounded corners */
 button {
-    background-color: #C361ED;
-    color: white;
+    background-color: #05386B;
+    color: #edf5e1;
     font-size: 2 rem;
     width: 10rem; 
     text-align: center;
