@@ -1,5 +1,5 @@
 # Quiz Game
-This is a quiz game. There is a timer of 75 seconds. When the game starts, the timer starts counting down and multiple choice questions are presented to the user. The game ends when the timer has reached 0 or when all questions have been answered. At game end, the user is presented with their score and an input box to enter their initials. The user can choose to save their initials and then the initials and score will be displayed on the high score page.
+This is a quiz game with questions about The Wizard of Oz. There is a timer of 75 seconds. When the game starts, the timer starts counting down and multiple choice questions are presented to the user. The game ends when the timer has reached 0 or when all questions have been answered. At game end, the user is presented with their score and an input box to enter their initials. The user can choose to save their initials and then the initials and score will be displayed on the high score page. Users can clear the initials and scores.
 
 ## Links
 [Quiz Game Website](https://seattlesal.github.io/code-quiz/)
@@ -13,8 +13,11 @@ The user will gain points for every correct answer they provide. The user will l
 The layout responds and adapt to differen screen sizes using media queries.
 
 ## Screenshot
-Full size:
-![Quiz Game](./assets/quiz-screenshot.png)
-![High Scores](./assets/highscores-screenshot.png)
+Game start page:
+![Quiz Game](./assets/main-page-screenshot.png)
+Example question:
+![Quiz Question](./assets/question-screenshot.png)
+
+![High Scores](./assets/high-scores-screenshot.png)
 
 
