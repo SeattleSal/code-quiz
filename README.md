@@ -17,7 +17,7 @@ Game start page:
 ![Quiz Game](./assets/main-page-screenshot.png)
 Example question:
 ![Quiz Question](./assets/question-screenshot.png)
-
+High Score page:
 ![High Scores](./assets/high-scores-screenshot.png)
 
 
