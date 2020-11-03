@@ -16,17 +16,17 @@ This is a quiz game with questions about The Wizard of Oz. There is a timer of 7
 * [GitHub Repository](https://github.com/SeattleSal/code-quiz)
 
 ## Scoring
-The user will gain points for every correct answer they provide. The user will lose 10 seconds time on the timer for incorrect answers.
-
-Local storage is used to allow the user to store multiple initials and scores. The user can also clear all scores stored.
+The user will lose 10 seconds time on the timer for incorrect answers. The final score is whatever is left on the timer at the end of the game. Local storage is used to allow the user to store multiple initials and scores. The user can also clear all scores stored.
 
 ## Screenshots
-Game start page:
-![Quiz Game](./assets/main-page-screenshot.png)
-Example question:
-![Quiz Question](./assets/question-screenshot.png)
-High Score page:
-![High Scores](./assets/high-scores-screenshot.png)
+Game start page: <br>
+![Quiz Game](./assets/img/main-page-screenshot.png)
+
+Example question: <br>
+![Quiz Question](./assets/img/question-screenshot.png)
+
+High Score page: <br>
+![High Scores](./assets/img/high-scores-screenshot.png)
 
 ## License
 Copyright 2020 Sally Perez
