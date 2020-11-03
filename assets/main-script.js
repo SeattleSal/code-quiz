@@ -166,6 +166,7 @@ function startTimer(){
         } else {
             // time is up, stop interval (clearInterval) and call function to render final score page 
             clearInterval(interval);
+            timeRemaining = 0;
             renderFinalScore();
         }
     }, 1000);
@@ -182,6 +183,7 @@ function renderTime() {
 function renderFinalScore() {
     // clear page
     mainEl.innerHTML = "";
+    score = timeRemaining;
 
     // create html elements for game over page
     var h1El = document.createElement('h1');
