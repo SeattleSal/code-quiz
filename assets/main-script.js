@@ -167,6 +167,7 @@ function startTimer(){
             // time is up, stop interval (clearInterval) and call function to render final score page 
             clearInterval(interval);
             timeRemaining = 0;
+            renderTime();
             renderFinalScore();
         }
     }, 1000);
