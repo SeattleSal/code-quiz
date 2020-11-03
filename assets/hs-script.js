@@ -8,13 +8,13 @@ var clearScoresButton = document.querySelector("#clear");
 // Retrieve the highScores stored in local storage and display
 function renderHighScores() {
 
-    // if no scores are stored, show no scores stored message
+    // if no scores are stored in local storage, show no scores stored message
     if (localStorage.getItem("highScores") === null) {
         highScoresEl.textContent = "No scores stored.";
     }
     // if scores are stored, display the scores in a list
     else {
-        // there are scores stored
+        // retrieve scores from local storage
         var hs = localStorage.getItem("highScores");
         var hsObject = JSON.parse(hs);
         var array = [];

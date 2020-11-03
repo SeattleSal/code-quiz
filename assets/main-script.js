@@ -1,12 +1,12 @@
 // index.html for quiz game
 
 // VARIABLES
-// grab elements needed such as start button
+// grab html elements needed 
 var startButton = document.querySelector("#start");
 var mainEl = document.querySelector("main");
 var timeEl = document.querySelector("#timeLeft");
 
-// other variables for keep track of quiz functions
+// create variables to keep track of quiz functions
 var timeRemaining = 0;
 var score = 0; 
 var startTime = 75; 
@@ -75,14 +75,14 @@ var questionsAndAnswers = [
 ] 
 
 // FUNCTIONS
-// startQuiz - one by one, display each question and possible answers
+// startQuiz - one by one display each question and possible answers
 function startQuiz() {
     var questionIndex = 0;
 
     // start the timer
     startTimer();
 
-    // crete elements for question (h1) and list of answers (ol)
+    // crete elements for question (h2), list of answers (ol) and results once answered
     questionEl = document.createElement("h2");
     answerList = document.createElement("ol");
     result = document.createElement("p");
@@ -101,6 +101,7 @@ function renderQuestions(questionIndex) {
     var button;
     var result;
 
+    // game continues until all questions have been displayed OR time has run out
     if(questionIndex >= questionsAndAnswers.length || timeRemaining <= 0) {
         clearInterval(interval);
         renderFinalScore();
@@ -145,26 +146,25 @@ function renderQuestions(questionIndex) {
                 }
 
                 questionIndex++;
-                // display if answer was right or wron for 1 second
+                // display if answer was right or wrong for 1 second before proceeding to next question
                 setTimeout(function() {
                     renderQuestions(questionIndex);
                 }, 1000);
             }
 
-        }, {once: true});
+        }, {once: true}); // only attach listener once
 }
 
 // startTimer
 function startTimer(){
     timeRemaining = startTime;
-    //setTime();
     interval = setInterval(function() {
         if (timeRemaining > 0) {
             // decrement by 1 second every second until time is up
             timeRemaining--;
             renderTime();
         } else {
-            // stop interval (clearInterval) and call function to render final score page 
+            // time is up, stop interval (clearInterval) and call function to render final score page 
             clearInterval(interval);
             renderFinalScore();
         }
