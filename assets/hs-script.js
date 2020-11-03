@@ -17,7 +17,6 @@ function renderHighScores() {
         // retrieve scores from local storage
         var hs = localStorage.getItem("highScores");
         var hsObject = JSON.parse(hs);
-        var array = [];
 
         // create list elements
         var listEl = document.createElement('ol');
@@ -26,6 +25,11 @@ function renderHighScores() {
         var liEl;
         
         if (hsObject.length) {
+            // sort in order of score
+            hsObject.sort(function(a,b) {
+                return b.score - a.score;
+            })
+            // print to screen
             for(var x in hsObject) {
                 liEl = document.createElement("li");
                 liEl.innerHTML = `Initials: ${hsObject[x].initials} Score: ${hsObject[x].score}`;
